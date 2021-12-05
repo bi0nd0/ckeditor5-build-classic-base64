@@ -7,10 +7,11 @@
 import ClassicEditorBase from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
 
 import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials';
-// import UploadAdapter from '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter';
+import UploadAdapter from '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter';
 import Autoformat from '@ckeditor/ckeditor5-autoformat/src/autoformat';
 import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold';
 import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic';
+import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline';
 import BlockQuote from '@ckeditor/ckeditor5-block-quote/src/blockquote';
 // import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder';
 import EasyImage from '@ckeditor/ckeditor5-easy-image/src/easyimage';
@@ -35,15 +36,20 @@ import ImageResize from '@ckeditor/ckeditor5-image/src/imageresize';
 import SourceEditing from '@ckeditor/ckeditor5-source-editing/src/sourceediting';
 import Base64UploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/base64uploadadapter';
 
+import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
+
+
+
 export default class ClassicEditor extends ClassicEditorBase {}
 
 // Plugins to include in the build.
 ClassicEditor.builtinPlugins = [
 	Essentials,
-	// UploadAdapter,
+	UploadAdapter,
 	Autoformat,
 	Bold,
 	Italic,
+	Underline,
 	BlockQuote,
 	// CKFinder,
 	CloudServices,
@@ -65,7 +71,8 @@ ClassicEditor.builtinPlugins = [
 	TextTransformation,
 	ImageResize,
 	SourceEditing,
-	Base64UploadAdapter,
+	// Base64UploadAdapter,
+	SimpleUploadAdapter,
 ];
 
 // Editor configuration.
@@ -109,6 +116,19 @@ ClassicEditor.defaultConfig = {
 			'tableRow',
 			'mergeTableCells'
 		]
+	},
+	simpleUpload: {
+		// The URL that the images are uploaded to.
+		uploadUrl: 'http://example.com',
+
+		// Enable the XMLHttpRequest.withCredentials property.
+		withCredentials: true,
+
+		// Headers sent along with the XMLHttpRequest to the upload server.
+		headers: {
+			'X-CSRF-TOKEN': 'CSRF-Token',
+			Authorization: 'Bearer <JSON Web Token>'
+		}
 	},
 	// This value must be kept in sync with the language defined in webpack.config.js.
 	language: 'en'
